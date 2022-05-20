@@ -9,6 +9,7 @@ public:
     QWERTZ(int **matrix);
     double getDistance(QChar one, QChar two);
     double getDistance(int firstAscii, int secondAscii);
+    double getLength(QString word);
 
 private:
     Graph *graph;

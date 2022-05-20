@@ -23,9 +23,12 @@ int main(int argc, char *argv[])
 
     QWERTZ *qwert = new QWERTZ(matrix_rows);
 
-    qDebug() << "A - D" << qwert->getDistance(65, 68);
-    qDebug() << "T - M" << qwert->getDistance(84, 77);
-    qDebug() << "J - Y" << qwert->getDistance(74, 89);
-    qDebug() << "V - Y" << qwert->getDistance(86, 89);
+    qDebug() << "T - I" << qwert->getDistance(84, 73);
+    qDebug() << "I - M" << qwert->getDistance(73, 77);
+    qDebug() << "T - U" << qwert->getDistance(84, 85);
+    qDebug() << "U - S" << qwert->getDistance(85, 83);
+
+    qDebug() << "TIM should be ~5" << qwert->getLength(QString("TIM"));
+    qDebug() << "TITUS should be ~16.3" << qwert->getLength(QString("TITUS"));
 
 }

@@ -13,6 +13,7 @@ public:
     Keyboard(int **matrix) {};
     virtual double getDistance(QChar one, QChar two) = 0;
     virtual double getDistance(int firstAscii, int secondAscii) = 0;
+    virtual double getLength(QString word) = 0;
 
 protected:
     Graph *graph;

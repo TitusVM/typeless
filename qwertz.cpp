@@ -64,3 +64,16 @@ double QWERTZ::getDistance(QChar one, QChar two)
     return getDistance(firstAscii, secondAscii);
 
 }
+
+
+double QWERTZ::getLength(QString word)
+{
+    double length = 0;
+
+    for (size_t i = 0; i < word.length() - 1; i++)
+    {
+        length += this->getDistance(word[i], word[i+1]);
+    }
+
+    return length;
+}
