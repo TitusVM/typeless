@@ -7,7 +7,7 @@ class Graph
 {
 private:
     int size;
-    int** matrix;
+    double** matrix;
     bool* tabVisited;
     bool* tabRencontred;
 
@@ -21,8 +21,8 @@ public:
     Graph(std::string* filePath);
     ~Graph();
     void afficherGraphe();
-    void ajouterArc(char s1, char s2, int pond = 1);
-    void ajouterArcOriente(char s1, char s2, int pond = 1);
+    void ajouterArc(char s1, char s2, double pond = 1);
+    void ajouterArcOriente(char s1, char s2, double pond = 1);
     int  degree(char s);
     bool estConnexe();
     bool estFortementConnexe();
@@ -45,6 +45,8 @@ public:
 
     int poidsTotal();
     int degreeMax();
+
+    double getPonderation(char s1, char s2);
 
     inline int getSize() { return this->size; };
 

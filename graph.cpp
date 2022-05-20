@@ -33,7 +33,7 @@ void Graph::afficherGraphe()
     }
 }
 
-void Graph::ajouterArc(char s1, char s2, int pond)
+void Graph::ajouterArc(char s1, char s2, double pond)
 {
     int index1 = s1 - 65;
     int index2 = s2 - 65;
@@ -42,12 +42,19 @@ void Graph::ajouterArc(char s1, char s2, int pond)
     this->matrix[index2][index1] = pond;
 }
 
-void Graph::ajouterArcOriente(char s1, char s2, int pond)
+void Graph::ajouterArcOriente(char s1, char s2, double pond)
 {
     int index1 = s1 - 65;
     int index2 = s2 - 65;
 
     this->matrix[index1][index2] = pond;
+}
+
+double Graph::getPonderation(char s1, char s2)
+{
+    int index1 = s1 - 65;
+    int index2 = s2 - 65;
+    return this->matrix[index1][index2];
 }
 
 int Graph::degree(char s)
@@ -452,12 +459,12 @@ void Graph::init(int nb)
     this->size = nb;
     this->tabVisited = new bool[nb];
     this->tabRencontred = new bool[nb];
-    this->matrix = new int* [this->size];
+    this->matrix = new double* [this->size];
     for (size_t i = 0; i < this->size; i++)
     {
         this->tabVisited[i] = false;
         this->tabRencontred[i] = false;
-        this->matrix[i] = new int[this->size];
+        this->matrix[i] = new double[this->size];
         for (size_t j = 0; j < this->size; j++)
         {
             this->matrix[i][j] = 0;

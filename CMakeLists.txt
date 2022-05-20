@@ -33,6 +33,8 @@ set(PROJECT_SOURCES
         graph.h graph.cpp
         minheap.h minheap.cpp
         tools.h tools.cpp
+        keyboard.h
+        qwertz.h qwertz.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
