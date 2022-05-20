@@ -19,6 +19,8 @@ private:
     QLabel *output;
     QPushButton *button;
 
+    void addStyles();
+
 private slots:
     void find();
     void updateText(const QString& text);
