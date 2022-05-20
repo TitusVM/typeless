@@ -30,9 +30,9 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
 set(PROJECT_SOURCES
         main.cpp
         mainwindow.h mainwindow.cpp
-        graph.h graph.cpp
-        minheap.h minheap.cpp
-        tools.h tools.cpp
+        #graph.h graph.cpp
+        #minheap.h minheap.cpp
+        #tools.h tools.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
