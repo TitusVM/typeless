@@ -1,4 +1,4 @@
-#include "Tools.h"
+#include "tools.h"
 
 vector<string> Tools::splitLines(string s, string delimiter)
 {
