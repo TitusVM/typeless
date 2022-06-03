@@ -15,7 +15,11 @@ void MainWindow::setupUI(){
     vLayout = new QVBoxLayout();
     hLayout = new QHBoxLayout();
 
+    QRegularExpression re("^[a-zA-Z]*$");
+    QRegularExpressionValidator *validator = new QRegularExpressionValidator(re, this);
+
     input = new QLineEdit();
+    input->setValidator(validator);
 
     output = new QLabel("Resultat");
     button = new QPushButton("Chercher");

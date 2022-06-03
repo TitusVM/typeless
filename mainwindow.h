@@ -7,6 +7,8 @@
 #include <QLayout>
 #include <QLineEdit>
 #include <QStyle>
+#include <QRegularExpression>
+#include <QRegularExpressionValidator>
 
 class MainWindow : public QWidget
 {
