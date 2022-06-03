@@ -19,6 +19,8 @@ private:
     QLabel *output;
     QPushButton *button;
 
+    void setupUI();
+
 private slots:
     void find();
 

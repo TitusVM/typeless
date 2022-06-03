@@ -7,6 +7,10 @@
 MainWindow::MainWindow(QWidget *parent)
     : QWidget(parent)
 {
+    show();
+}
+
+void MainWindow::setupUI(){
     vLayout = new QVBoxLayout();
     hLayout = new QHBoxLayout();
 
@@ -25,8 +29,6 @@ MainWindow::MainWindow(QWidget *parent)
     vLayout->addLayout(hLayout);
 
     setLayout(vLayout);
-
-    show();
 }
 
 /**
