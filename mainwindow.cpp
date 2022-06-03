@@ -7,6 +7,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QWidget(parent)
 {
+    setupUI();
     show();
 }
 
