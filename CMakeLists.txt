@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(Typeless VERSION 0.1 LANGUAGES CXX)
+project(typeless VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -31,37 +31,36 @@ set(PROJECT_SOURCES
         main.cpp
         mainwindow.h mainwindow.cpp
         graph.h graph.cpp
-        minheap.h minheap.cpp
         tools.h tools.cpp
-        keyboard.h
-        qwertz.h qwertz.cpp
+        minheap.h minheap.cpp
+        typelessui.h typelessui.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(Typeless
+    qt_add_executable(typeless
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
     )
 else()
     if(ANDROID)
-        add_library(Typeless SHARED
+        add_library(typeless SHARED
             ${PROJECT_SOURCES}
         )
     else()
-        add_executable(Typeless
+        add_executable(typeless
             ${PROJECT_SOURCES}
         )
     endif()
 endif()
 
-target_link_libraries(Typeless PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(typeless PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 
-set_target_properties(Typeless PROPERTIES
+set_target_properties(typeless PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
 )
 
 if(QT_VERSION_MAJOR EQUAL 6)
-    qt_finalize_executable(Typeless)
+    qt_finalize_executable(typeless)
 endif()

@@ -1,31 +1,23 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
-#include <QLabel>
-#include <QPushButton>
-#include <QLayout>
-#include <QLineEdit>
-#include <QStyle>
+#include "typelessui.h"
 
-class MainWindow : public QWidget
+#include <QMainWindow>
+
+class MainWindow : public QMainWindow
 {
     Q_OBJECT
-private:
-    QVBoxLayout *vLayout;
-    QHBoxLayout *hLayout;
-
-    QLineEdit *input;
-    QLabel *output;
-    QPushButton *button;
-
-    void setupUI();
-
-private slots:
-    void find();
 
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+private:
+    TypelessUI *ui;
+
+    void createUI();
+
+
 };
 #endif // MAINWINDOW_H
