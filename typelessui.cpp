@@ -86,8 +86,9 @@ void TypelessUI::parseFile(QString filePath)
     if(file->open(QIODevice::ReadOnly))
     {
         QTextStream in(file);
-        delete this->timer;
+        //delete this->timer; // <-- creates an error on next line: read access violation
         this->timer = new QElapsedTimer();
+        this->timer->start();
         while(!in.atEnd())
         {
             QString word = in.readLine();
@@ -252,6 +253,9 @@ void TypelessUI::slotBrowsePressed()
 {
     QString filePath =
             QFileDialog::getOpenFileName(this, "Open a text file", "./",
-                "Text files (*.txt)");
-    this->parseFile(filePath);
+                                         "Text files (*.txt)");
+    //this->parseFile(filePath);
+    QFuture<void> future = QtConcurrent::run([=]{
+        this->parseFile(filePath);
+    });
 }

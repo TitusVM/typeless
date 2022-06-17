@@ -24,8 +24,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 #    endif()
 #endif()
 
-find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets REQUIRED)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
+find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets Concurrent REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets Concurrent REQUIRED)
 
 set(PROJECT_SOURCES
         main.cpp
@@ -53,7 +53,7 @@ else()
     endif()
 endif()
 
-target_link_libraries(typeless PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(typeless PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Concurrent)
 
 set_target_properties(typeless PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
