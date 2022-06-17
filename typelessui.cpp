@@ -254,8 +254,11 @@ void TypelessUI::slotBrowsePressed()
 {
     QString filePath =
             QFileDialog::getOpenFileName(this, "Open a text file", "./",
-                "Text files (*.txt)");
-    this->parseFile(filePath);
+                                         "Text files (*.txt)");
+    //this->parseFile(filePath);
+    QFuture<void> future = QtConcurrent::run([=]{
+        this->parseFile(filePath);
+    });
 }
 
 void TypelessUI::slotACPCPressed()

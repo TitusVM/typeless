@@ -15,6 +15,9 @@
 #include <QThread>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QThread>
+#include <QFuture>
+#include <QtConcurrent>
 
 
 #include "graph.h"
@@ -33,6 +36,7 @@ private:
     Graph *graph;
     std::vector<std::vector<int>> matrix;
     QElapsedTimer *timer;
+    QThread parseThread;
 
     void createKeyboard();
     double calculateDistance(char s1, char s2);
