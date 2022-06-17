@@ -20,6 +20,7 @@ TypelessUI::TypelessUI(QWidget *parent) : QWidget(parent)
     this->outputTime = new QLabel("Time taken : ");
     this->buttonFind = new QPushButton("Chercher");
     this->buttonBrowse = new QPushButton("Choisir fichier");
+    this->buttonACPC = new QPushButton("ACPC");
 
     createKeyboard();
     createTable();
@@ -71,7 +72,7 @@ double TypelessUI::getTotalDistance(char* tab, int size)
 double TypelessUI::getDistance(char s1, char s2)
 {
     double distance = 0;
-    //distance = this->graph->getPonderation(s1, s2);
+    distance = this->graph->getPonderation(s1, s2);
     if(distance == 0)
     {
         distance = calculateDistance(s1, s2);
@@ -86,15 +87,14 @@ void TypelessUI::parseFile(QString filePath)
     if(file->open(QIODevice::ReadOnly))
     {
         QTextStream in(file);
-        delete this->timer;
         this->timer = new QElapsedTimer();
+        this->timer->start();
         while(!in.atEnd())
         {
             QString word = in.readLine();
             getTotalDistance(word);
         }
         this->outputTime->setText("Time : " + QString::number(this->timer->elapsed()) + " ms");
-
     }
     else QMessageBox::information(0, "error", file->errorString());
 }
@@ -212,11 +212,13 @@ void TypelessUI::createUI()
 {
     connect(this->buttonFind, &QPushButton::clicked, this, &TypelessUI::slotSearchPressed);
     connect(this->buttonBrowse, &QPushButton::clicked, this, &TypelessUI::slotBrowsePressed);
+    connect(this->buttonACPC, &QPushButton::clicked, this, &TypelessUI::slotACPCPressed);
 
     this->layout->addWidget(this->input, 0,0,1,1);
     this->layout->addWidget(this->buttonFind, 0,1,1,1);
     this->layout->addWidget(this->buttonBrowse, 0,2,1,1);
     this->layout->addWidget(this->list, 1,0,1,1);
+    this->layout->addWidget(this->buttonACPC, 1,2,1,1);
     this->layout->addWidget(this->outputTime, 1,1,1,1);
 
     this->tableView->show();
@@ -254,4 +256,9 @@ void TypelessUI::slotBrowsePressed()
             QFileDialog::getOpenFileName(this, "Open a text file", "./",
                 "Text files (*.txt)");
     this->parseFile(filePath);
+}
+
+void TypelessUI::slotACPCPressed()
+{
+    this->graph->parcoursACPC(*"B");
 }

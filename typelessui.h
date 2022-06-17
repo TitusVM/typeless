@@ -48,6 +48,7 @@ private:
     QListWidget *list;
     QPushButton *buttonFind;
     QPushButton *buttonBrowse;
+    QPushButton *buttonACPC;
 
     void createUI();
 
@@ -65,6 +66,7 @@ private:
 private slots:
     void slotSearchPressed();
     void slotBrowsePressed();
+    void slotACPCPressed();
 
 };
 

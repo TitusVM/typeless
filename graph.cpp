@@ -4,6 +4,8 @@
 #include <stack>
 #include <list>
 
+#include <QDebug>
+
 Graph::Graph(int nb)
 {
     init(nb);
@@ -383,7 +385,7 @@ void Graph::visitePriorite(char s1)
             int sommetCourant = nodeCourant->label - 65;
             int prioCourant = nodeCourant->prio;
             /* TRAITEMENT */
-            std::cout << (char)(sommetCourant + 65) << prioCourant << "; ";
+            qDebug() << (char)(sommetCourant + 65) << prioCourant << "; ";
             this->tabVisited[sommetCourant] = true;
             for (size_t i = 0; i < this->size; i++)
             {
