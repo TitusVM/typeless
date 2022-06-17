@@ -15,7 +15,15 @@ TypelessUI::TypelessUI(QWidget *parent) : QWidget(parent)
     this->layout = new QGridLayout();
     this->input = new QLineEdit();
 
+    this->usage = new uint64_t[CHAR_COUNT];
+
+    for (int i = 0; i < CHAR_COUNT; i++)
+    {
+        this->usage[i] = 0;
+    }
+
     this->list = new QListWidget();
+    this->usageList = new QListWidget();
 
     this->outputTime = new QLabel("Time taken : ");
     this->buttonFind = new QPushButton("Chercher");
@@ -24,6 +32,7 @@ TypelessUI::TypelessUI(QWidget *parent) : QWidget(parent)
 
     createKeyboard();
     createTable();
+    updateUsageList();
     createUI();
 }
 
@@ -54,9 +63,17 @@ double TypelessUI::getTotalDistance(QString string)
 double TypelessUI::getTotalDistance(char* tab, int size)
 {
     double distance = 0;
-    for(int i = 0; i < size - 1; i++)
+    if(size != 1)
     {
-        distance += this->getDistance(tab[i], tab[i+1]);
+        for(int i = 0; i < size - 1; i++)
+        {
+            distance += this->getDistance(tab[i], tab[i+1]);
+        }
+    }
+    else
+    {
+        int letterIndex = tab[0] - 65;
+        this->usage[letterIndex] += 1;
     }
     return distance;
 }
@@ -73,11 +90,11 @@ double TypelessUI::getDistance(char s1, char s2)
 {
     double distance = 0;
     distance = this->graph->getPonderation(s1, s2);
+    this->usage[s1 - 65] += 1;
     if(distance == 0)
     {
         distance = calculateDistance(s1, s2);
     }
-    this->updateTable();
     return distance;
 }
 
@@ -92,11 +109,14 @@ void TypelessUI::parseFile(QString filePath)
         while(!in.atEnd())
         {
             QString word = in.readLine();
+            if(word.contains("'")) word.replace("'", "");
             getTotalDistance(word);
         }
         this->outputTime->setText("Time : " + QString::number(this->timer->elapsed()) + " ms");
     }
     else QMessageBox::information(0, "error", file->errorString());
+    this->updateTable();
+    this->updateUsageList();
 }
 
 /*****************************************************************\
@@ -124,6 +144,16 @@ void TypelessUI::updateTable()
     this->model->setHorizontalHeaderLabels(horizontalHeader);
     this->model->setVerticalHeaderLabels(verticalHeader);
     this->tableView->setModel(this->model);
+}
+
+void TypelessUI::updateUsageList()
+{
+    this->usageList->clear();
+    for(int i = 0; i < CHAR_COUNT; i++)
+    {
+        QString letter = QString((char)(i+65));
+        this->usageList->addItem(letter + " : " + QString::number(this->usage[i]));
+    }
 }
 
 /**
@@ -218,6 +248,7 @@ void TypelessUI::createUI()
     this->layout->addWidget(this->buttonFind, 0,1,1,1);
     this->layout->addWidget(this->buttonBrowse, 0,2,1,1);
     this->layout->addWidget(this->list, 1,0,1,1);
+    this->layout->addWidget(this->usageList, 2,0,1,1);
     this->layout->addWidget(this->buttonACPC, 1,2,1,1);
     this->layout->addWidget(this->outputTime, 1,1,1,1);
 

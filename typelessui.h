@@ -35,6 +35,7 @@ public:
 private:
     Graph *graph;
     std::vector<std::vector<int>> matrix;
+    uint64_t *usage;
     QElapsedTimer *timer;
     QThread parseThread;
 
@@ -50,6 +51,7 @@ private:
     QLineEdit *input;
     QLabel *outputTime;
     QListWidget *list;
+    QListWidget *usageList;
     QPushButton *buttonFind;
     QPushButton *buttonBrowse;
     QPushButton *buttonACPC;
@@ -65,6 +67,7 @@ private:
 
     void createTable();
     void updateTable();
+    void updateUsageList();
 
 // SLOTS
 private slots:
