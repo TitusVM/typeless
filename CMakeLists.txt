@@ -35,6 +35,7 @@ set(PROJECT_SOURCES
         minheap.h minheap.cpp
         typelessui.h typelessui.cpp
         keyboardwidget.h keyboardwidget.cpp
+        optimizekeyboard.h optimizekeyboard.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
