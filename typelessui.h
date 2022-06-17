@@ -21,6 +21,7 @@
 
 
 #include "graph.h"
+#include "keyboardwidget.h"
 
 class TypelessUI : public QWidget
 {
@@ -38,6 +39,8 @@ private:
     uint64_t *usage;
     QElapsedTimer *timer;
     QThread parseThread;
+    QList<KeyboardWidget*> *keyboards;
+
 
     void createKeyboard();
     double calculateDistance(char s1, char s2);
@@ -74,6 +77,7 @@ private slots:
     void slotSearchPressed();
     void slotBrowsePressed();
     void slotACPCPressed();
+    void slotShowKeyboard();
 
 };
 

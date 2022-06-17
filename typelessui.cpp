@@ -14,6 +14,7 @@ TypelessUI::TypelessUI(QWidget *parent) : QWidget(parent)
     this->graph = new Graph(CHAR_COUNT);
     this->layout = new QGridLayout();
     this->input = new QLineEdit();
+    this->keyboards = new QList<KeyboardWidget*>();
 
     this->usage = new uint64_t[CHAR_COUNT];
 
@@ -115,8 +116,16 @@ void TypelessUI::parseFile(QString filePath)
         this->outputTime->setText("Time : " + QString::number(this->timer->elapsed()) + " ms");
     }
     else QMessageBox::information(0, "error", file->errorString());
+
     this->updateTable();
     this->updateUsageList();
+
+    KeyboardWidget *kb = new KeyboardWidget(this->matrix, this->usage, 26);
+
+    connect(kb, &KeyboardWidget::signalLoaded, this, &TypelessUI::slotShowKeyboard);
+    this->keyboards->append(kb);
+    kb->updateData(this->usage);
+    kb->createUI();
 }
 
 /*****************************************************************\
@@ -286,7 +295,7 @@ void TypelessUI::slotBrowsePressed()
     QString filePath =
             QFileDialog::getOpenFileName(this, "Open a text file", "./",
                                          "Text files (*.txt)");
-    //this->parseFile(filePath);
+
     QFuture<void> future = QtConcurrent::run([=]{
         this->parseFile(filePath);
     });
@@ -295,4 +304,15 @@ void TypelessUI::slotBrowsePressed()
 void TypelessUI::slotACPCPressed()
 {
     this->graph->parcoursACPC(*"B");
+}
+
+void TypelessUI::slotShowKeyboard()
+{
+    for (int i = 0; i < this->keyboards->length(); i++)
+    {
+        if(this->keyboards->at(i)->isHidden())
+        {
+            this->keyboards->at(i)->show();
+        }
+    }
 }
