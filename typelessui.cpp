@@ -1,4 +1,5 @@
 #include "typelessui.h"
+#include "optimizekeyboard.h"
 #define CHAR_COUNT 26
 #define NB_ROWS 3
 #define NB_COLUMNS 10
@@ -120,12 +121,21 @@ void TypelessUI::parseFile(QString filePath)
     this->updateTable();
     this->updateUsageList();
 
-    KeyboardWidget *kb = new KeyboardWidget(this->matrix, this->usage, 26);
 
-    connect(kb, &KeyboardWidget::signalLoaded, this, &TypelessUI::slotShowKeyboard);
+    KeyboardWidget *kb = new KeyboardWidget(this->matrix, this->usage, 26);
+    kb->setHidden(true);
     this->keyboards->append(kb);
     kb->updateData(this->usage);
     kb->createUI();
+
+    std::vector<std::vector<int>> *asdf = OptimizeKeyboard::getInstance()->optimize(this->usage, 26);
+
+    KeyboardWidget *kbOptimized = new KeyboardWidget(*OptimizeKeyboard::getInstance()->optimize(this->usage, 26), this->usage, 26);
+    kbOptimized->setHidden(true);
+    connect(kbOptimized, &KeyboardWidget::signalLoaded, this, &TypelessUI::slotShowKeyboard);
+    this->keyboards->append(kbOptimized);
+    kbOptimized->updateData(this->usage);
+    kbOptimized->createUI();
 }
 
 /*****************************************************************\
@@ -288,6 +298,8 @@ void TypelessUI::slotSearchPressed()
         totalTime += lastRecordedTime;
     }
     this->outputTime->setText("Time : " + QString::number(totalTime) + " ms");
+    this->updateUsageList();
+    this->updateTable();
 }
 
 void TypelessUI::slotBrowsePressed()
